@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity // mostrar que quero criar uma tabela

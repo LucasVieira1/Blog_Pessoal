@@ -9,40 +9,56 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Entity // mostrar que quero criar uma tabela
-@Table(name = "tb_postagem") // create table tb_postagem
+import org.hibernate.annotations.UpdateTimestamp;
 
+@Entity
+@Table(name = "tb_postagens") 
 public class Postagem {
 
-	@Id // primary key
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment, tranfere a responsabilidade para o MySQL
-	private long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+	private Long id; 
 
-	@NotBlank(message = "O atributo titulo não pode retornar vazio!") // not null
-	@Size(min = 5, max = 100, message = "O atributo titulo deve conter no mínimo 5 e no máximo 10!") // limita um numero																										// de caracteres
-	private String titulo;
+	@NotBlank(message = "O atributo título é Obrigatório e não pode utilizar espaços em branco!") 
+	@Size(min = 5, max = 100, message = "O atributo título deve conter no mínimo 05 e no máximo 100 caracteres")
+	private String titulo; 
 
-	@NotBlank(message = "O atributo texto não pode retornar vazio!") // not null
-	@Size(min = 10, max = 1000, message = "O atributo titulo deve conter no mínimo 10 e no máximo 1000!") // limita um																										// numero
+	@NotNull(message = "O atributo texto é Obrigatório!")
+	@Size(min = 10, max = 1000, message = "O atributo texto deve conter no mínimo 10 e no máximo 500 caracteres")
 	private String texto;
 
-	@UpdateTimestamp // pega a hora automaticamente
+	@UpdateTimestamp
 	private LocalDateTime data;
-	
+
 	@ManyToOne
 	@JsonIgnoreProperties("postagem")
 	private Tema tema;
 
-	public long getId() {
+	/**
+	 * Relacionamento com a classe Usuario
+	 * Não esqueça de criar os métodos getters e setters para o atributo usuario.
+	 */
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Usuario usuario;
+
+	/**
+	 * 
+	 * Os Métodos Get e Set obrigatoriamente devem ser criados para todos os atributos
+     * da Classe, inclusive os novos atributos que forem adicionados no decorrer do
+     * processo de Desenvolvimento.
+	 * 
+	 */	
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -58,8 +74,8 @@ public class Postagem {
 		return texto;
 	}
 
-	public void setTexto(String testo) {
-		this.texto = testo;
+	public void setTexto(String texto) {
+		this.texto = texto;
 	}
 
 	public LocalDateTime getData() {
@@ -71,10 +87,23 @@ public class Postagem {
 	}
 
 	public Tema getTema() {
-		return tema;
+		return this.tema;
 	}
 
 	public void setTema(Tema tema) {
 		this.tema = tema;
 	}
+
+	/**
+	 * Métodos Get e Set para o atributo usuario
+	 */
+
+	public Usuario getUsuario() {
+		return this.usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 }

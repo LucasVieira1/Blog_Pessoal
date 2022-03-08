@@ -35,7 +35,7 @@ public class PostagemController {
 	@Autowired // cria a injeção de dependencia
 	private TemaRepository temaRepository;
 
-	@GetMapping
+	@GetMapping("/all")
 	public ResponseEntity<List<Postagem>> getAll() {
 		return ResponseEntity.ok(postagemRepository.findAll()); // findall select * tb_postagens
 	}

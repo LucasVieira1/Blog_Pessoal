@@ -5,8 +5,10 @@ import java.util.Optional;
 
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.example.blogpessoal.model.Usuario;
 import com.example.blogpessoal.model.UsuarioLogin;
@@ -87,8 +89,21 @@ public class UsuarioService {
 		if (usuarioRepository.findById(usuario.getId()).isPresent()) {
 
 			/**
-			 * Se o Usuário existir no Banco de Dados, a senha será criptografada através do
-			 * Método criptografarSenha.
+			 * Cria um Objeto Optional com o resultado do método findById
+			 */
+			Optional<Usuario> buscaUsuario = usuarioRepository.findByUsuario(usuario.getUsuario());
+
+			/**
+			 * Se o Usuário existir no Banco de dados e o Id do Usuário encontrado no Banco
+			 * for diferente do usuário do Id do Usuário enviado na requisição, a
+			 * Atualização dos dados do Usuário não pode ser realizada.
+			 */
+			if ((buscaUsuario.isPresent()) && (buscaUsuario.get().getId() != usuario.getId()))
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário já existe!", null);
+
+			/**
+			 * Se o Usuário existir no Banco de Dados e o Id for o mesmo, a senha será
+			 * criptografada através do Método criptografarSenha.
 			 */
 			usuario.setSenha(criptografarSenha(usuario.getSenha()));
 
@@ -109,15 +124,8 @@ public class UsuarioService {
 		 * encontrado.
 		 */
 		return Optional.empty();
-
 	}
 
-	/**
-	 * A principal função do método autenticarUsuario, que é executado no endpoint
-	 * logar, é gerar o token do usuário codificado em Base64. O login prorpiamente
-	 * dito é executado pela BasicSecurityConfig em conjunto com as classes
-	 * UserDetailsService e Userdetails
-	 */
 	public Optional<UsuarioLogin> autenticarUsuario(Optional<UsuarioLogin> usuarioLogin) {
 
 		/**

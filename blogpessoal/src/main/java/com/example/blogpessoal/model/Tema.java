@@ -25,7 +25,7 @@ public class Tema {
 	@NotBlank(message = "O atributo não pode retornar vazio!") // not null
 	private String descricao;
 
-	@OneToMany(mappedBy = "tema", cascade = CascadeType.ALL) // mapped = dar o nome pro relacionamento, cascate = toda alteração para a tabnela_tb tema vai afetar tbm a															// tb_postagem
+	@OneToMany(mappedBy = "tema", cascade = CascadeType.REMOVE) // mapped = dar o nome pro relacionamento, cascate = toda alteração para a tabnela_tb tema vai afetar tbm a															// tb_postagem
 	@JsonIgnoreProperties("tema")
 	private List<Postagem> postagem; // list pq pode ter mais de uma postagem
 

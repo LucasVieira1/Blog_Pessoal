@@ -1,10 +1,8 @@
 package com.example.blogpessoal.model;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +14,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -49,10 +46,6 @@ public class Usuario {
 	private String senha;
 
 	private String foto;
-
-	@Column(name = "data_nascimento")
-	@JsonFormat(pattern = "yyyy-MM-dd")
-	private LocalDate dataNascimento;
 
 	/**
 	 * CascadeType.REMOVE -> Ele propaga a operação de remoção de um objeto Pai para
@@ -119,14 +112,6 @@ public class Usuario {
 
 	public void setFoto(String foto) {
 		this.foto = foto;
-	}
-
-	public LocalDate getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(LocalDate dataNascimento) {
-		this.dataNascimento = dataNascimento;
 	}
 
 	public List<Postagem> getPostagem() {

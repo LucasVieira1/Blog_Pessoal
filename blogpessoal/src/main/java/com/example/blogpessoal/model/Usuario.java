@@ -35,40 +35,51 @@ public class Usuario {
 	private String usuario;
 
 	/**
-	 * A anotação @Size está definida apenas com o valor min
-	 * porque ao criptografar a senha a mesma terá uma tamanho
-	 * muito maior (em numero de caracteres) do que a senha
-	 * não ciptografada.
+	 * A anotação @Size está definida apenas com o valor min porque ao criptografar
+	 * a senha a mesma terá uma tamanho muito maior (em numero de caracteres) do que
+	 * a senha não ciptografada.
 	 * 
-	 * Exemplo: admin123 -> 8 caracteres
-	 * admin123 criptografado -> 60 caracteres
+	 * Exemplo: admin123 -> 8 caracteres admin123 criptografado -> 60 caracteres
 	 * 
-	 * A anotação @NotBlank indica que o atributo não deve ser
-	 * nulo e/ou conter espaços em branco.
+	 * A anotação @NotBlank indica que o atributo não deve ser nulo e/ou conter
+	 * espaços em branco.
 	 */
 	@NotBlank(message = "O atributo Senha é Obrigatório!")
 	@Size(min = 8, message = "A Senha deve ter no mínimo 8 caracteres")
 	private String senha;
 
 	private String foto;
-	
+
 	@Column(name = "data_nascimento")
 	@JsonFormat(pattern = "yyyy-MM-dd")
-	@NotNull(message = "O atributo data não pode ser vazi")
 	private LocalDate dataNascimento;
 
 	/**
-	 * CascadeType.REMOVE -> Ele propaga a operação de remoção de um objeto Pai para um 
-	 * objeto Filho. 
-	 * Apenas quando remover a Entidade Usuario, também será removida todas as entidades 
-	 * Postagens associadas. Nas demais operações não haverá a propagação.
+	 * CascadeType.REMOVE -> Ele propaga a operação de remoção de um objeto Pai para
+	 * um objeto Filho. Apenas quando remover a Entidade Usuario, também será
+	 * removida todas as entidades Postagens associadas. Nas demais operações não
+	 * haverá a propagação.
 	 * 
-	 * CascadeType.ALL -> Ele propaga todas a operações (Inserir, Listar, Atualizar e Apagar)
-	 * de um objeto Pai para um objeto Filho. 
+	 * CascadeType.ALL -> Ele propaga todas a operações (Inserir, Listar, Atualizar
+	 * e Apagar) de um objeto Pai para um objeto Filho.
 	 */
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("usuario")
 	private List<Postagem> postagem;
+
+	public Usuario(Long id, String nome, String usuario, String senha, String foto) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.usuario = usuario;
+		this.senha = senha;
+		this.foto = foto;
+
+	}
+
+	public Usuario() {
+
+	}
 
 	public Long getId() {
 		return id;
@@ -109,7 +120,7 @@ public class Usuario {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-	
+
 	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}

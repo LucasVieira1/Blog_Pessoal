@@ -49,6 +49,10 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
@@ -70,6 +74,12 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.6.3</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -80,5 +90,7 @@
 			</plugin>
 		</plugins>
 	</build>
+
+
 
 </project>

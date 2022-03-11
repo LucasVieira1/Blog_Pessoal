@@ -1,7 +1,5 @@
 package com.example.blogpessoal.model;
 
-import java.time.LocalDate;
-
 public class UsuarioLogin {
 	private Long id;
 
@@ -13,19 +11,15 @@ public class UsuarioLogin {
 
 	private String foto;
 
-	private LocalDate dataNascimento;
-
 	private String token;
 
-	public UsuarioLogin(Long id, String nome, String usuario, String senha, String foto, LocalDate dataNascimento,
-			String token) {
+	public UsuarioLogin(Long id, String nome, String usuario, String senha, String foto, String token) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.usuario = usuario;
 		this.senha = senha;
 		this.foto = foto;
-		this.dataNascimento = dataNascimento;
 		this.token = token;
 	}
 
@@ -81,11 +75,4 @@ public class UsuarioLogin {
 		this.foto = foto;
 	}
 
-	public LocalDate getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(LocalDate dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
 }

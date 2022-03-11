@@ -322,7 +322,7 @@ public class UsuarioControllerTest {
 		 * o usuário e senha do usuário criado acima.
 		 */
 		HttpEntity<UsuarioLogin> corpoRequisicao = new HttpEntity<UsuarioLogin>(
-				new UsuarioLogin(0L, "", "marisa_souza@email.com.br", "13465278", "", null, ""));
+				new UsuarioLogin(0L, "", "marisa_souza@email.com.br", "13465278", "", ""));
 
 		/**
 		 * Cria um Objeto da Classe ResponseEntity (corpoResposta), que receberá a
